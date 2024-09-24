@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -18,7 +19,7 @@ app.use(session({
 }));
 
 
-mongoose.connect('mongodb+srv://nicolascaliari28:iselec450@cluster0.xhcenwi.mongodb.net/tickets?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('MongoDB connected')).catch(err => console.log(err));
@@ -39,6 +40,6 @@ app.get('/', (req, res) => {
     res.redirect('/tickets');
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server running on port 3000');
 });
