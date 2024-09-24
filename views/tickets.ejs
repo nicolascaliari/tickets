@@ -16,6 +16,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>idTicket</th>
                     <th>Título</th>
                     <th>Descripción</th>
                     <th>Estado</th>
@@ -28,6 +29,7 @@
                 <% if (tickets.length > 0) { %>
                     <% tickets.forEach(ticket => { %>
                         <tr>
+                            <td><%= ticket.idTicket %></td>
                             <td><%= ticket.title %></td>
                             <td><%= ticket.description %></td>
                             <td><%= ticket.status %></td>

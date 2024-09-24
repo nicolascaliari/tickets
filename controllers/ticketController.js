@@ -1,12 +1,12 @@
 const Ticket = require('../models/ticket');
 const User = require('../models/user');
-const Counter = require('../models/counter');  
+const Counter = require('../models/counter');
 
 const getNextTicketId = async () => {
     const counter = await Counter.findOneAndUpdate(
-        { name: 'ticket' },  
-        { $inc: { seq: 1 } },  
-        { new: true, upsert: true }  
+        { name: 'ticket' },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
     );
     return counter.seq;
 };
@@ -17,18 +17,18 @@ exports.getAllTickets = async (req, res) => {
         return res.redirect('/login');
     }
     try {
-        const tickets = await Ticket.find({ assignedTo: req.session.userId })
-            .populate('assignedTo', 'name') 
+        const tickets = await Ticket.find({ assignedTo: req.session.userId, status: { $ne: 'cerrado' } })
+            .populate('assignedTo', 'name')
             .exec();
         const users = await User.find();
         res.render('tickets', {
             tickets,
-            users, 
+            users,
             userName: req.session.userName
         });
     } catch (err) {
         res.status(500).send('Error al obtener los tickets');
-        console.error(err); 
+        console.error(err);
     }
 };
 
@@ -55,7 +55,7 @@ exports.createTicket = async (req, res) => {
             status,
             assignedTo,
             createdAt: new Date(),
-            idTicket: `#${idTicket}` 
+            idTicket: `#${idTicket}`
         });
         await ticket.save();
         res.redirect('/tickets');
@@ -70,8 +70,10 @@ exports.getAllTicketsForAllUsers = async (req, res) => {
         return res.redirect('/login');
     }
     try {
-        const tickets = await Ticket.find()
-            .populate('assignedTo', 'name') 
+        const tickets = await Ticket.find({
+            status: { $ne: 'cerrado' }
+        })
+            .populate('assignedTo', 'name')
             .exec();
         const users = await User.find();
         res.render('allTickets', {
@@ -81,19 +83,19 @@ exports.getAllTicketsForAllUsers = async (req, res) => {
         });
     } catch (err) {
         res.status(500).send('Error al obtener los tickets');
-        console.error(err); 
+        console.error(err);
     }
 };
 
 exports.showEditTicketForm = async (req, res) => {
     try {
-        const ticketId = req.params.id; 
+        const ticketId = req.params.id;
         const ticket = await Ticket.findById(ticketId).populate('assignedTo');
         const users = await User.find();
         if (!ticket) {
             return res.status(404).send('Ticket no encontrado');
         }
-        res.render('editTicket', { ticket, users }); 
+        res.render('editTicket', { ticket, users });
     } catch (error) {
         res.status(500).send('Error al obtener el ticket');
     }
@@ -101,7 +103,7 @@ exports.showEditTicketForm = async (req, res) => {
 
 exports.updateTicket = async (req, res) => {
     try {
-        const ticketId = req.params.id; 
+        const ticketId = req.params.id;
         const { title, description, priority, sector, status, assignedTo } = req.body;
         const updatedTicket = await Ticket.findByIdAndUpdate(ticketId, {
             title,
@@ -123,9 +125,9 @@ exports.updateTicket = async (req, res) => {
 
 
 exports.searchTickets = async (req, res) => {
-    const query = req.query.query; 
+    const query = req.query.query;
     try {
-        const ticket = await Ticket.find({ idTicket : query}).populate('assignedTo');
+        const ticket = await Ticket.find({ idTicket: query , status : {$ne : 'cerrado'}}).populate('assignedTo');
         if (!ticket) {
             return res.status(404).send('Ticket no encontrado');
         }
