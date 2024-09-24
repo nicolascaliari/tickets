@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mis Tickets</title>
+</head>
+<body>
+    <h1>Tickets de <%= userName %></h1>
+
+    <ul>
+        <% tickets.forEach(ticket => { %>
+            <li>
+                <strong><%= ticket.title %></strong> - <%= ticket.status %><br>
+                Descripción: <%= ticket.description %>
+            </li>
+        <% }) %>
+    </ul>
+
+    <a href="/logout">Cerrar Sesión</a>
+</body>
+</html>
