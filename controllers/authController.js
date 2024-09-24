@@ -10,7 +10,7 @@ exports.loginUser = async (req, res) => {
     const { email } = req.body;
     try {
 
-        console.log(email);
+       // console.log(email);
         const user = await User.findOne({ email : email });
 
         if (!user) {

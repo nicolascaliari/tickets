@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.table-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #007bff;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+
+/* Contenedor principal */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del título */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Estilo del formulario */
+.ticket-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo de los grupos de formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Estilo de las etiquetas */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Estilo de los inputs y selects */
+input[type="text"],
+textarea,
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form input {
+    padding: 10px;
+    width: 200px;
+}
+
+.search-form button {
+    padding: 10px 15px;
+}

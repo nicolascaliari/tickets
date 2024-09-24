@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Ticket</title>
+    <link rel="stylesheet" href="/styles/styles.css"> <!-- Enlaza el archivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Ticket</h1>
+        <form action="/tickets/create" method="POST" class="ticket-form">
+            <div class="form-group">
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="priority">Prioridad:</label>
+                <select id="priority" name="priority">
+                    <option value="baja">Baja</option>
+                    <option value="medio">Media</option>
+                    <option value="alta">Alta</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sector">Sector:</label>
+                <select id="sector" name="sector">
+                    <option value="backend">Backend</option>
+                    <option value="frontend">Frontend</option>
+                    <option value="design">Diseño</option>
+                    <option value="marketing">Marketing</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Estado:</label>
+                <select name="status" id="status">
+                    <option value="Asignado">Asignado</option>
+                    <option value="en tratamiento">en tratamiento</option>
+                    <option value="en pruebas de usuario">en pruebas de usuario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="assignedTo">Asignar a:</label>
+                <select id="assignedTo" name="assignedTo">
+                    <% users.forEach(user => { %>
+                        <option value="<%= user._id %>"><%= user.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Crear Ticket</button>
+        </form>
+        <a href="/tickets" class="btn btn-secondary">Volver a Tickets</a>
+    </div>
+</body>
+</html>

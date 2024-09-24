@@ -1,20 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Tickets</title>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-    <h1>Tickets de <%= userName %></h1>
-
-    <ul>
-        <% tickets.forEach(ticket => { %>
-            <li>
-                <strong><%= ticket.title %></strong> - <%= ticket.status %><br>
-                Descripción: <%= ticket.description %>
-            </li>
-        <% }) %>
-    </ul>
-
-    <a href="/logout">Cerrar Sesión</a>
+    <h1>Mis Tickets</h1>
+    <form action="/tickets/search" method="GET" class="search-form">
+        <input type="text" name="query" placeholder="Buscar por ID de Ticket..." required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Prioridad</th>
+                    <th>Asignado a</th>
+                    <th>Acciones</th> <!-- Columna para acciones -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Verifica si hay tickets -->
+                <% if (tickets.length > 0) { %>
+                    <% tickets.forEach(ticket => { %>
+                        <!-- <% console.log(ticket); %> -->
+                        <tr>
+                            <td><%= ticket.title %></td>
+                            <td><%= ticket.description %></td>
+                            <td><%= ticket.status %></td>
+                            <td><%= ticket.priority %></td>
+                            <td><%= ticket.assignedTo ? ticket.assignedTo.name : 'No asignado' %></td>
+                            <td>
+                                <a href="/tickets/edit/<%= ticket._id %>" class="btn">Editar</a> <!-- Botón para editar -->
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">No se encontró ningún ticket.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <a href="/tickets/create" class="btn">Crear Ticket</a>
+        <a href="/tickets/all" class="btn btn-secondary">Ver Todos los Tickets</a>
+    </div>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos los Tickets</title>
+    <link rel="stylesheet" href="/styles/styles.css"> <!-- Vinculando el CSS -->
+</head>
+<body>
+    <h1>Todos los Tickets</h1>
+
+    <!-- Formulario de búsqueda -->
+    <form action="/tickets/search" method="GET" class="search-form">
+        <input type="text" name="query" placeholder="Buscar por ID de Ticket..." required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Prioridad</th>
+                    <th>Asignado a</th>
+                    <th>Acciones</th> <!-- Columna para acciones como editar -->
+                </tr>
+            </thead>
+            <tbody>
+                <% tickets.forEach(ticket => { %>
+                    <tr>
+                        <td><%= ticket.title %></td>
+                        <td><%= ticket.description %></td>
+                        <td><%= ticket.status %></td>
+                        <td><%= ticket.priority %></td>
+                        <td><%= ticket.assignedTo ? ticket.assignedTo.name : 'No asignado' %></td>
+                        <td>
+                            <!-- Botón para editar el ticket -->
+                            <a href="/tickets/edit/<%= ticket._id %>" class="btn">Editar</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <a href="/tickets" class="btn btn-secondary">Volver a Mis Tickets</a>
+    </div>
+</body>
+</html>

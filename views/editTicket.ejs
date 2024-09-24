@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Ticket</title>
+    <link rel="stylesheet" href="/styles/styles.css"> <!-- Enlaza el archivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Modificar Ticket</h1>
+        <form action="/tickets/edit/<%= ticket._id %>" method="POST" class="ticket-form">
+            <div class="form-group">
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" value="<%= ticket.title %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea id="description" name="description" required><%= ticket.description %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="priority">Prioridad:</label>
+                <select id="priority" name="priority">
+                    <option value="baja" <%= ticket.priority === 'baja' ? 'selected' : '' %>>Baja</option>
+                    <option value="medio" <%= ticket.priority === 'medio' ? 'selected' : '' %>>Media</option>
+                    <option value="alta" <%= ticket.priority === 'alta' ? 'selected' : '' %>>Alta</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sector">Sector:</label>
+                <select id="sector" name="sector">
+                    <option value="backend" <%= ticket.sector === 'backend' ? 'selected' : '' %>>Backend</option>
+                    <option value="frontend" <%= ticket.sector === 'frontend' ? 'selected' : '' %>>Frontend</option>
+                    <option value="design" <%= ticket.sector === 'design' ? 'selected' : '' %>>Diseño</option>
+                    <option value="marketing" <%= ticket.sector === 'marketing' ? 'selected' : '' %>>Marketing</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Estado:</label>
+                <select name="status" id="status">
+                    <option value="Asignado" <%= ticket.status === 'Asignado' ? 'selected' : '' %>>Asignado</option>
+                    <option value="en tratamiento" <%= ticket.status === 'en tratamiento' ? 'selected' : '' %>>en tratamiento</option>
+                    <option value="en pruebas de usuario" <%= ticket.status === 'en pruebas de usuario' ? 'selected' : '' %>>en pruebas de usuario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="assignedTo">Asignar a:</label>
+                <select id="assignedTo" name="assignedTo">
+                    <% users.forEach(user => { %>
+                        <option value="<%= user._id %>" <%= ticket.assignedTo.equals(user._id) ? 'selected' : '' %>><%= user.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Actualizar Ticket</button>
+        </form>
+        <a href="/tickets" class="btn btn-secondary">Volver a Tickets</a>
+    </div>
+</body>
+</html>
