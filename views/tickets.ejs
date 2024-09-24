@@ -21,14 +21,12 @@
                     <th>Estado</th>
                     <th>Prioridad</th>
                     <th>Asignado a</th>
-                    <th>Acciones</th> <!-- Columna para acciones -->
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Verifica si hay tickets -->
                 <% if (tickets.length > 0) { %>
                     <% tickets.forEach(ticket => { %>
-                        <!-- <% console.log(ticket); %> -->
                         <tr>
                             <td><%= ticket.title %></td>
                             <td><%= ticket.description %></td>

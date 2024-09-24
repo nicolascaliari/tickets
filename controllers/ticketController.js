@@ -123,22 +123,15 @@ exports.updateTicket = async (req, res) => {
 
 
 exports.searchTickets = async (req, res) => {
-    const query = req.query.query; // Obtener el ID de ticket de los parámetros de la consulta
+    const query = req.query.query; 
     try {
-        // Buscar el ticket por ID
-        const ticket = await Ticket.find({ idTicket : query}).populate('assignedTo'); // Si necesitas los detalles del usuario asignado
-
-        //console.log(ticket);
-        // Si no se encuentra el ticket, redirigir o mostrar un mensaje
+        const ticket = await Ticket.find({ idTicket : query}).populate('assignedTo');
         if (!ticket) {
             return res.status(404).send('Ticket no encontrado');
         }
-        console.log("Enviando ticket como array:", [ticket]);
-        // Renderiza la vista con el ticket encontrado
-        res.render('tickets', { tickets: ticket }); // Enviar el ticket dentro de un array
-
+        res.render('tickets', { tickets: ticket });
     } catch (error) {
-        console.error(error); // Muestra el error en la consola
+        console.error(error);
         res.status(500).send('Error al buscar el ticket');
     }
 };

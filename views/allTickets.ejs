@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos los Tickets</title>
-    <link rel="stylesheet" href="/styles/styles.css"> <!-- Vinculando el CSS -->
+    <link rel="stylesheet" href="/styles/styles.css"> 
 </head>
 <body>
     <h1>Todos los Tickets</h1>
 
-    <!-- Formulario de búsqueda -->
     <form action="/tickets/search" method="GET" class="search-form">
         <input type="text" name="query" placeholder="Buscar por ID de Ticket..." required>
         <button type="submit">Buscar</button>
@@ -24,7 +23,7 @@
                     <th>Estado</th>
                     <th>Prioridad</th>
                     <th>Asignado a</th>
-                    <th>Acciones</th> <!-- Columna para acciones como editar -->
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +35,6 @@
                         <td><%= ticket.priority %></td>
                         <td><%= ticket.assignedTo ? ticket.assignedTo.name : 'No asignado' %></td>
                         <td>
-                            <!-- Botón para editar el ticket -->
                             <a href="/tickets/edit/<%= ticket._id %>" class="btn">Editar</a>
                         </td>
                     </tr>

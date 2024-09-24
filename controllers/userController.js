@@ -1,6 +1,5 @@
 const User = require('../models/user');
 
-// Crear usuario
 exports.createUser = async (req, res) => {
     try {
         const user = new User(req.body);
@@ -11,7 +10,6 @@ exports.createUser = async (req, res) => {
     }
 };
 
-// Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
