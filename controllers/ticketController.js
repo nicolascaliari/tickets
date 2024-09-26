@@ -12,6 +12,21 @@ const getNextTicketId = async () => {
 };
 
 
+function calculateTimeElapsed(createdAt, currentDate) {
+    const diffTime = Math.abs(currentDate - createdAt);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays < 30) {
+        return `${diffDays} días`;
+    } else if (diffDays < 365) {
+        const months = Math.floor(diffDays / 30);
+        return `${months} meses`;
+    } else {
+        const years = Math.floor(diffDays / 365);
+        return `${years} años`;
+    }
+}
+
+
 exports.getAllTickets = async (req, res) => {
     if (!req.session.userId) {
         return res.redirect('/login');
@@ -20,9 +35,15 @@ exports.getAllTickets = async (req, res) => {
         const tickets = await Ticket.find({ assignedTo: req.session.userId, status: { $ne: 'cerrado' } })
             .populate('assignedTo', 'name')
             .exec();
+        const currentDate = new Date();
+        const ticketsWithTimeElapsed = tickets.map(ticket => {
+            const createdAt = new Date(ticket.createdAt);
+            const timeElapsed = calculateTimeElapsed(createdAt, currentDate);
+            return { ...ticket._doc, timeElapsed };
+        });
         const users = await User.find();
         res.render('tickets', {
-            tickets,
+            tickets : ticketsWithTimeElapsed,
             users,
             userName: req.session.userName
         });
@@ -76,8 +97,14 @@ exports.getAllTicketsForAllUsers = async (req, res) => {
             .populate('assignedTo', 'name')
             .exec();
         const users = await User.find();
+        const currentDate = new Date(); 
+        const ticketsWithTimeElapsed = tickets.map(ticket => {
+            const createdAt = new Date(ticket.createdAt); 
+            const timeElapsed = calculateTimeElapsed(createdAt, currentDate); 
+            return { ...ticket._doc, timeElapsed };
+        });
         res.render('allTickets', {
-            tickets,
+            tickets: ticketsWithTimeElapsed,
             users,
             userName: req.session.userName
         });
@@ -86,6 +113,7 @@ exports.getAllTicketsForAllUsers = async (req, res) => {
         console.error(err);
     }
 };
+
 
 exports.showEditTicketForm = async (req, res) => {
     try {
@@ -127,7 +155,7 @@ exports.updateTicket = async (req, res) => {
 exports.searchTickets = async (req, res) => {
     const query = req.query.query;
     try {
-        const ticket = await Ticket.find({ idTicket: query , status : {$ne : 'cerrado'}}).populate('assignedTo');
+        const ticket = await Ticket.find({ idTicket: query, status: { $ne: 'cerrado' } }).populate('assignedTo');
         if (!ticket) {
             return res.status(404).send('Ticket no encontrado');
         }

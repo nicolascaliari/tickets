@@ -22,6 +22,7 @@
                     <th>Estado</th>
                     <th>Prioridad</th>
                     <th>Asignado a</th>
+                    <th>Creado Hace</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -35,14 +36,15 @@
                             <td><%= ticket.status %></td>
                             <td><%= ticket.priority %></td>
                             <td><%= ticket.assignedTo ? ticket.assignedTo.name : 'No asignado' %></td>
+                            <td><%= ticket.timeElapsed %></td> <!-- Mostrar el tiempo transcurrido -->
                             <td>
-                                <a href="/tickets/edit/<%= ticket._id %>" class="btn">Editar</a> <!-- Botón para editar -->
+                                <a href="/tickets/edit/<%= ticket._id %>" class="btn">Editar</a>
                             </td>
                         </tr>
                     <% }); %>
                 <% } else { %>
                     <tr>
-                        <td colspan="6">No se encontró ningún ticket.</td>
+                        <td colspan="7">No se encontró ningún ticket.</td>
                     </tr>
                 <% } %>
             </tbody>
