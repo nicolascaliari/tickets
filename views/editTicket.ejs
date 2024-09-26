@@ -22,9 +22,9 @@
             <div class="form-group">
                 <label for="priority">Prioridad:</label>
                 <select id="priority" name="priority">
-                    <option value="baja" <%= ticket.priority === 'baja' ? 'selected' : '' %>>Baja</option>
-                    <option value="medio" <%= ticket.priority === 'medio' ? 'selected' : '' %>>Media</option>
-                    <option value="alta" <%= ticket.priority === 'alta' ? 'selected' : '' %>>Alta</option>
+                    <option value="Baja" <%= ticket.priority === 'Baja' ? 'selected' : '' %>>Baja</option>
+                    <option value="Medio" <%= ticket.priority === 'Medio' ? 'selected' : '' %>>Media</option>
+                    <option value="Alta" <%= ticket.priority === 'Alta' ? 'selected' : '' %>>Alta</option>
                 </select>
             </div>
 
@@ -41,10 +41,10 @@
             <div class="form-group">
                 <label for="status">Estado:</label>
                 <select name="status" id="status">
-                    <option value="Asignado" <%= ticket.status === 'Asignado' ? 'selected' : '' %>>Asignado</option>
-                    <option value="en tratamiento" <%= ticket.status === 'en tratamiento' ? 'selected' : '' %>>en tratamiento</option>
-                    <option value="en pruebas de usuario" <%= ticket.status === 'en pruebas de usuario' ? 'selected' : '' %>>en pruebas de usuario</option>
-                    <option value="cerrado" <%= ticket.status === 'cerrado' ? 'selected' : '' %>>cerrado</option>
+                    <option value="Asignado a" <%= ticket.status === 'Asignado a' ? 'selected' : '' %>>Asignado</option>
+                    <option value="En tratamiento" <%= ticket.status === 'En tratamiento' ? 'selected' : '' %>>en tratamiento</option>
+                    <option value="En pruebas de usuario" <%= ticket.status === 'En pruebas de usuario' ? 'selected' : '' %>>en pruebas de usuario</option>
+                    <option value="Cerrado" <%= ticket.status === 'Cerrado' ? 'selected' : '' %>>cerrado</option>
                 </select>
             </div>
 

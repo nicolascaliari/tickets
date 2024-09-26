@@ -10,11 +10,11 @@ const ticketSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['asignado a', 'en tratamiento', 'en pruebas de usuario', 'cerrado'],
+        enum: ['Asignado a', 'En tratamiento', 'En pruebas de usuario', 'Cerrado'],
     },
     priority: {
         type: String,
-        enum: ['baja', 'medio', 'alta'],
+        enum: ['Baja', 'Medio', 'Alta'],
     },
     sector: {
         type: String,
